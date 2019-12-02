@@ -12,7 +12,7 @@ class Boxpublisher():
     def __init__(self):
         self.srv = Server(DynamicParamsConfig,
                           self.dynamic_reconfigure_callback)
-        self.pub = rospy.Publisher("/box", BoundingBox, queue_size=1)
+        self.pub = rospy.Publisher("~box", BoundingBox, queue_size=1)
         self.box = BoundingBox()
         self.frame = rospy.get_param("~frame", "/base_link")
         self.box.header.frame_id = self.frame
@@ -45,7 +45,7 @@ class Boxpublisher():
         self.box.pose.orientation.x = 0.
         self.box.pose.orientation.y = 0.
         self.box.pose.orientation.z = 0.
-        self.box.pose.orientation.w = 0.
+        self.box.pose.orientation.w = 1.
         self.pub.publish(self.box)
 
 
