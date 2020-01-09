@@ -12,7 +12,7 @@ class Boxpublisher():
     def __init__(self):
         self.srv = Server(DynamicParamsConfig,
                           self.dynamic_reconfigure_callback)
-        self.pub = rospy.Publisher("~box", BoundingBox, queue_size=1)
+        self.pub = rospy.Publisher("~output", BoundingBox, queue_size=1)
         self.box = BoundingBox()
         self.frame = rospy.get_param("~frame", "/base_link")
         self.box.header.frame_id = self.frame
