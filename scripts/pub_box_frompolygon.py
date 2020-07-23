@@ -32,31 +32,37 @@ class BoxPublisher(object):
         return config
 
     def polygon_callback(self, polygon_msg):
-        rospy.loginfo("pub box")
-        polygon_array_list = polygon_msg.polygons[1]
-        polygon_array = np.array(polygon_array_list)
-        x_min, y_min, z_min = np.unravel_index(
-            np.argmin(polygon_array), polygon_array.shape)
-        x_max, y_max, z_max = np.unravel_index(
-            np.argmax(polygon_array), polygon_array.shape)
-        w = abs(x_min - x_max)
-        d = abs(y_min - y_max)
-        h = abs(z_min - z_max)
-        x = (x_min + x_max) / 2
-        y = (y_min + y_max) / 2
-        z = (z_min + z_max) / 2
-        self.box.header.stamp = rospy.Time.now()
-        self.box.pose.position.x = x
-        self.box.pose.position.y = y
-        self.box.pose.position.z = z
-        self.box.dimensions.x = w
-        self.box.dimentions.y = d
-        self.box.dimentions.z = h
-        self.box.pose.orientation.w = 1
-        self.box.pose.orientation.x = 0
-        self.box.pose.orientation.y = 0
-        self.box.pose.orientation.z = 0
-        self.pub.publish(self.box)
+        if len(polygon_msg.polygons) > 1:
+            rospy.loginfo("pub box")
+            polygon_array_list = polygon_msg.polygons[1]
+            rospy.loginfo(polygon_array_list)
+            rospy.loginfo(polygon_array_list.polygon)
+            rospy.loginfo(polygon_array_list.polygon.points)
+            polygon_array = np.array(polygon_array_list)
+            x_min, y_min, z_min = np.unravel_index(
+                np.argmin(polygon_array), polygon_array.shape)
+            x_max, y_max, z_max = np.unravel_index(
+                np.argmax(polygon_array), polygon_array.shape)
+            w = abs(x_min - x_max)
+            d = abs(y_min - y_max)
+            h = abs(z_min - z_max)
+            x = (x_min + x_max) / 2
+            y = (y_min + y_max) / 2
+            z = (z_min + z_max) / 2
+            self.box.header.stamp = rospy.Time.now()
+            self.box.pose.position.x = x
+            self.box.pose.position.y = y
+            self.box.pose.position.z = z
+            self.box.dimensions.x = w
+            self.box.dimentions.y = d
+            self.box.dimentions.z = h
+            self.box.pose.orientation.w = 1
+            self.box.pose.orientation.x = 0
+            self.box.pose.orientation.y = 0
+            self.box.pose.orientation.z = 0
+            self.pub.publish(self.box)
+        else:
+            rospy.loginfo("TABLE is NONE")
 
 
 def main():

@@ -10,6 +10,7 @@ find_package(PythonLibs REQUIRED)
 
 generate_dynamic_reconfigure_options(
   cfg/DynamicParams.cfg
+  cfg/PolygonArraytoPolygonConfig.cfg
   )
 
 include_directories(
