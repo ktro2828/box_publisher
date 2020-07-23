@@ -21,6 +21,8 @@ class BoxPublisher(object):
         self.pub = rospy.Publisher("~output", BoundingBox, queue_size=1)
 
     def dynamic_reconfigure_callback(self, config, level):
+        """Box's default pose
+        """
         self.x = config["x"]
         self.y = config["y"]
         self.z = config["z"]
@@ -58,9 +60,12 @@ class BoxPublisher(object):
 
 
 def main():
-    rospy.init_node("box_publisher", anonymous=False)
-    bp = BoxPublisher()
-    rospy.spin()
+    try:
+        rospy.init_node("box_publisher", anonymous=False)
+        bp = BoxPublisher()
+        rospy.spin()
+    except Exception:
+        pass
 
 
 if __name__ == '__main__':
