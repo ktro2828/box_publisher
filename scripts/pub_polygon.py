@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 
-from box_publisher.cfg import PolygonArraytoPolygonConfig
+from ..cfg import PolygonArraytoPolygonConfig
 from dynamic_reconfigure.server import Server
 from geometry_msgs.msg import PolygonStamped
 from jsk_recognition_msgs.msg import PolygonArray
